@@ -4,17 +4,18 @@ var router = express.Router();
 const productHelper = require('../helpers/product-helpers');
 const userHelper = require('../helpers/user-helper');
 const categoryHelper = require('../helpers/category-helper');
+const confidential = require('../config/confidential')
 const bcrypt = require('bcrypt');
 const Razorpay = require('razorpay');
 const cartHelper = require('../helpers/cart-helper');
 const orderHelper = require('../helpers/order-helper');
 const dashboardHelper = require('../helpers/dashboard-helper');
-const client = require('twilio')('AC2ca486c439b40cf76a99452cabbb18a6', 'c58594efac144e347b267b41c5839490');
+
+const client = require('twilio')(confidential.SID, confidential.AUTHTOKEN);
 const paypal = require('paypal-rest-sdk');
 const multer  = require('multer');
 const wishlistHelper = require('../helpers/wishlist-helper');
 const couponHelper = require('../helpers/coupon-helper');
-
 
 
 var otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
