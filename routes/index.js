@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 var router = express.Router();
 const paypal = require('paypal-rest-sdk');
@@ -5,13 +6,15 @@ const multer  = require('multer');
 
 const adminController = require('../controller/adminController')
 const userController = require('../controller/userController')
-const confidential = require('../config/confidential')
+
+const paypalClientId=process.env.PAYPALID
+const paypalClientSecret=process.env.PAYPALCLIENTSECRET
 
 
 paypal.configure({
   'mode': 'sandbox',
-  'client_id': confidential.PAYPALID,
-  'client_secret': confidential.PAYPALCLIENTSECRET
+  'client_id': paypalClientId,
+  'client_secret': paypalClientSecret
 });
 
 const storage = multer.diskStorage({
