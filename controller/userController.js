@@ -601,8 +601,8 @@ const postPay = (req, res) => {
         "payment_method": "paypal"
     },
     "redirect_urls": {
-        "return_url": "http://localhost:3000/thankyou",
-        "cancel_url": "http://localhost:3000/checkout"
+        "return_url": "https://sneakercon.shop/thankyou",
+        "cancel_url": "https://sneakercon.shop/checkout"
     },
     "transactions": [{
         "item_list": {
