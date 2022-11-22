@@ -14,7 +14,8 @@ module.exports={
             stock:parseInt(product.stock),
             image:product.image,
             discount:parseInt(product.discount),
-            search:parseInt(product.search)
+            search:parseInt(product.search),
+            status:product.status
         }
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).insertOne(productObj).then(()=>{

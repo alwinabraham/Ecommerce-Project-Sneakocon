@@ -1,8 +1,8 @@
-  <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="en">
 
 
-<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-products-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:00 GMT -->
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
 <head>
     <meta charset="utf-8">
     <title>Evara Dashboard</title>
@@ -17,9 +17,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
     <!-- Template CSS -->
     <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-
 </head>
+
 <body>
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
@@ -33,12 +32,12 @@
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a class="menu-link" href="/admin"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a class="menu-link" href="/product-list"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
@@ -122,52 +121,75 @@
                 </ul>
             </div>
         </header>
+
+
         <section class="content-main">
-            <div class="content-header">
-                <div>
-                    <h2 class="content-title card-title">Products List</h2>
+            <div class="row">
+                <div class="col-9">
+                    <form action="/banner-management" enctype="multipart/form-data" method="post">
+                    <div class="content-header">
+                        <h2 class="content-title">Add New Banner</h2>
+                        <div>
+                            <button type="submit" class="btn btn-md rounded font-sm hover-up">Publish</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <a href='/add-product' class="btn btn-primary btn-sm rounded">Create new</a>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Basic</h4>
+                        </div>
+                        <div class="card-body">
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Description</label>
+                                    <input type="text" name="description" placeholder="Type here" class="form-control" id="description" required>
+                                </div>
+                                </div>
+                        </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                <img src="assets/imgs/theme/upload.svg" alt="">
+                                <input name="image" type="file" multiple required />
+                            </div>
+                        </div>
+                        </form>
+                    </div> <!-- card end// -->
                 </div>
             </div>
-            <div class="card mb-4">
+
+
+            
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table" id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col">Product Image</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Brand</th>
-                                    <th scope="col">Colour</th>
-                                    <th scope="col">Gender</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Active</th>
+                                    <th scope="col">Banner Image</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#each product}}
+                                {{#each products}}
                                 <tr>
                                     <td><img src="/uploads/{{image.[0]}}" class="img-sm img-thumbnail" alt="Item"></td>
-                                    <td><p class="mb-0">{{this.productName}}</p></td>
-                                    <td>$<span>{{this.price}}</span> </td>
-                                    <td><span class="badge rounded-pill alert-success">{{this.brand}}</span></td>
-                                    <td><span>{{this.colour}}</span></td>
-                                    <td><p class="mb-0">{{this.gender}}</p></td>
-                                    <td><p class="mb-0">{{this.stock}}</p></td>
-                                    <td><a href='/edit/{{this._id}}' class="btn btn-sm font-sm rounded btn-brand"><i class="material-icons md-edit"></i></a></td>
-                                    <td><a href ='/delete/{{this._id}}' onclick="return confirm('Confirm Blocking?')" class="btn btn-sm font-sm btn-light rounded">{{this.status}}</a></td>
+                                    <td><p class="mb-0">{{this.description}}</p></td>
+                                    <td><a href ='/delete-banner/{{this._id}}' onclick="return confirm('Are you want to delete?')" class="btn btn-sm font-sm btn-light rounded">Delete</a></td>
                                 </tr>
                                 {{/each}}
                             </tbody>
                         </table>
                     </div> <!-- table-responsive //end -->
                 </div> <!-- card-body end// -->
-            </div> <!-- card end// -->
-        </section> <!-- content-main end// -->
+        </section>
+
+
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">
@@ -190,15 +212,8 @@
     <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="assets/js/main.js" type="text/javascript"></script>
-    <script src="http://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready( function () {
-        $('#myTable').DataTable();
-        });
-    </script>
 </body>
 
 
-<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-products-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:12 GMT -->
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
 </html>

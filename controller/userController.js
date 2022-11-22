@@ -14,6 +14,7 @@ const AuthToken = process.env.AUTHTOKEN
 const client = require('twilio')(SId, AuthToken );
 const paypal = require('paypal-rest-sdk');
 const wishlistHelper = require('../helpers/wishlist-helper');
+const bannerHelper = require('../helpers/banner-helper');
 
 
 var otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
@@ -35,17 +36,18 @@ const getNewHome = (req,res)=>{
   productHelper.upcomingProducts().then((upcome)=>{
     productHelper.getTrendingProdcuts().then((trend)=>{
     productHelper.getProductDiscount().then((product)=>{
+      bannerHelper.getBanners().then((banner)=>{
       if(req.session.userlogin){
         cartHelper.getCartCount(req.session.useractive).then((count)=>{
           req.session.navCartCount = count;
-        res.render('newHome',{product,trend,upcome,title:req.session.userlogin,count,logout:"LOGOUT",check:true});
+        res.render('newHome',{product,banner,trend,upcome,title:req.session.userlogin,count,logout:"LOGOUT",check:true});
         })
-  
       }else{
         res.render('newHome',{product,trend,upcome,check:false});
       }  
   })
   })
+})
 })
 }
 
