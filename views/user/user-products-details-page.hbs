@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/stylesheets/aos.css">
 
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+
     
   </head>
   <body>
@@ -68,16 +70,17 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><a href="/cart-list">Cart</a></strong> <span class="mx-2 mb-0">/</span> <strong class="text-black">Order List</strong></div>
+          <div class="col-md-12 mb-0"><a href="/">Home</a><span class="mx-2 mb-0">/</span> <strong class="text-black">Order List</strong></div>
         </div>
       </div>
     </div>
 
-    <div class="site-section">
       <div class="container">
-        <div class="row mb-5">
-            <div class="site-blocks-table">
-              <table class="table table-bordered">
+        <section class="content-main">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="myTable">
                 <thead>
                   <tr>
                     <th>Image</th>
@@ -104,6 +107,9 @@
                 </tbody>
               </table>
             </div>
+        </div>
+        </div>
+        </section>
         </div>
     <footer class="site-footer border-top">
       <div class="container">
@@ -185,6 +191,13 @@
   <script src="/javascripts/owl.carousel.min.js"></script>
   <script src="/javascripts/jquery.magnific-popup.min.js"></script>
   <script src="/javascripts/aos.js"></script>
+
+  <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+  <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
+  <!-- Main Script -->
+  <script src="/assets/js/main.js" type="text/javascript"></script>
+
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
 

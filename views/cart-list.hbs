@@ -16,8 +16,12 @@
 
 
     <link rel="stylesheet" href="stylesheets/aos.css">
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+
 
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
     
   </head>
   <body>
@@ -72,35 +76,39 @@
       </div>
     </div>
 
-    <div class="site-section">
+
       <div class="container">
-        <div class="row mb-5">
-            <div class="site-blocks-table">
-              <table class="table table-bordered">
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Cart List</h2>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="myTable">
                 <thead>
                   <tr>
                     <th class="product-thumbnail">Image</th>
                     <th class="product-name">Product</th>
                     <th class="product-price">Price</th>
+                    <th></th>
                     <th class="product-quantity">Quantity</th>
+                    <th></th>
                     <th class="product-remove">Remove</th>
+                    <th style="display: none;"></th>
                   </tr>
                 </thead>
                 <tbody>
                     {{#each products}}
                   <tr id="tableRemover{{this.products._id}}">
-                    <td class="product-thumbnail"> <img src="/uploads/{{this.products.image.[0]}}"  alt="" style="width: 100%; height: 100px" class="img-fluid"></td>
+                    <td class="product-thumbnail"> <img src="/uploads/{{this.products.image.[0]}}"  alt="" style="width: 90px;height: 100%;" class="img-fluid"></td>
                     <td class="product-name"><h2 class="h5 text-black">{{this.products.productName}}</h2></td>
                     <td>$<span>{{this.DiscountedTotal}}</span> </td>
-                    <td><div class="sameLineBlocking">
-                      
-                    <button id="minusbutton{{this.products._id}}" class="btn btn-primary" onclick="return changeQuantity('{{this._id}}','{{this.products._id}}',-1)"><i class="icon-minus"></i></button>
-
-                     <span style="margin: 10px;" id="counter{{this.products._id}}">{{this.quantity}}</span>
-                    
-                    <button id="plusbutton{{this.products._id}}" class="btn btn-primary" onclick="return changeQuantity('{{this._id}}','{{this.products._id}}',1)"><i class="icon-plus"></i></button>
-                    
-                    </div></td>
+                    <td><button id="minusbutton{{this.products._id}}" class="btn" onclick="return changeQuantity('{{this._id}}','{{this.products._id}}',-1)"><i class="icon-minus"></i></button></td>
+                    <td><span style="margin: 10px;" id="counter{{this.products._id}}">{{this.quantity}}</span></td>
+                    <td><button id="plusbutton{{this.products._id}}" class="btn" onclick="return changeQuantity('{{this._id}}','{{this.products._id}}',1)"><i class="icon-plus"></i></button></td>
                     <td><button class="btn btn-primary" onclick="return deleteCart('{{this._id}}','{{this.products._id}}')">Delete</button></td>
                     <td style="display: none;" id="stockCheck{{this.products._id}}">{{this.products.stock}}</td>
                   </tr>
@@ -109,7 +117,10 @@
               </table>
             </div>
         </div>
-                <div class="row">
+        </div>
+        </section>
+
+        <div class="row">
           <div class="col-md-6">
             <div class="row mb-5">
               <div class="col-md-6">
@@ -169,6 +180,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <footer class="site-footer border-top">
@@ -254,8 +266,21 @@
   <script src="javascripts/jquery.magnific-popup.min.js"></script>
   <script src="javascripts/aos.js"></script>
 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+  <!-- Main Script -->
+  <script src="assets/js/main.js" type="text/javascript"></script>
+
+  {{!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> --}}
   <script src="javascripts/main.js"></script>
+      <script src="http://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+        });
+    </script>
    <script>
       function deleteCart(cartId,proId){
 
@@ -313,7 +338,11 @@
                         if(counter == stockCheck){
                           document.getElementById("plusbutton"+proId).style.display = "none";
                         }
-                        $("#counter" + proId).html(counter)
+                        $("#counter" + proI            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Cart List</h2>
+                </div>
+            </div>d).html(counter)
                         $("#newcount" + proId).html(newcount)
                         $("#newtotal" + proId).html(newtotal)
                         $("#newCartTotal").html(newCartTotal)

@@ -756,7 +756,7 @@ a {
 .sameLineBlocking{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 }
 .centerlise{
   display: flex;

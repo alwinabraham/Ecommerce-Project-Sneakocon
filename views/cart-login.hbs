@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="stylesheets/aos.css">
 
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+
     
   </head>
   <body>
@@ -74,13 +76,11 @@
       </div>
     </div>
 
-    <div class="site-section">
-      <div class="container" style="width:35%;">
-        <div class="row">
-          <form action="/cart-login" method="post">
-          <div class="col-md-12 mb-5 mb-md-0">
-            <h2 class="h3 mb-3 text-black">Login Form</h2>
-            <div class="p-3 p-lg-5 border">
+        <section class="content-main mt-80 mb-80">
+          <div class="card mx-auto card-login">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Login</h4>
+              <form action="/cart-login" method="post" >
               
               <div class="form-group row">
                 <div class="col-md-12">
@@ -94,28 +94,22 @@
                   <input type="password" name="password" class="form-control" id="pswd" onkeyup="return validatePassword()" minlength="5" autocomplete="off" required>
                   <p style="color:red;" id="pswddemo"></p>
                 </div>
-              <div class="form-group row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <button type="submit"  class="btn btn-primary" style="width: 100%;">Login</button>
                   </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                   <div class="form-group">
-                    {{!-- <button type="submit"  class="btn btn-primary btn-sm">Signup</button> --}}
                     <button type="button" class="btn btn-primary" style="width: 100%;"><a href="/user-signup" style="text-decoration: none; color:white; padding :10px">Signup</a></button>
                   </div>
               </div>
-              </div>
-
-            </div>
-            </div>
-          </div>
             </form>
         </div>
      
       </div>
     </div>
+    </section>
 
 
 
