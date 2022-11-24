@@ -1,3 +1,4 @@
 .env
 /node_modules
 /config/confidential.js
+package-lock.json
