@@ -25,17 +25,19 @@ module.exports={
         })
     }
     ,deleteACategory:(Id)=>{
-        return new Promise((resolve,reject)=>{
+        try{
             db.get().collection(collection.CATEGORY_COLLECTION).deleteOne({_id:ObjectId(Id)}).then((responce)=>{
                 if(responce){
-                    resolve(responce)
+                    return responce
                 }else{
-                    reject()
+                    throw "error"
                 }
             }).catch((err)=>{
                 console.log(err);
             })
-        })
+        }catch (error){
+            throw error
+        }
     },updateACategory:(reference,editedCategory,newBrand)=>{
         return new Promise(async(resolve,reject)=>{
             let category = await db.get().collection(collection.CATEGORY_COLLECTION).findOne(reference)
@@ -52,17 +54,17 @@ module.exports={
                 console.log(err);
             })
         })
-    },getACategory:(Id)=>{
-        return new Promise(async(resolve,reject)=>{
+    },getACategory:async(Id)=>{
+        try{
             let product=await db.get().collection(collection.CATEGORY_COLLECTION).find({_id:ObjectId(Id)}).toArray()
             if(product){
-                resolve(product)
+                return product
             }else{
-                reject()
+                throw "error"
             }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        }catch (error){
+            throw(error);
+        }
     }
     ,createACatagory:(name,product,callback)=>{
 
@@ -78,11 +80,13 @@ module.exports={
             db.get().collection(name).insertOne({colour:results[i]}).then((responce)=>{
             callback(responce)
         })}
-    },checkCategory:(Id)=>{
-        return new Promise(async(resolve,reject)=>{
+    },checkCategory:async(Id)=>{
+        try{
             let count = await db.get().collection(collection.CATEGORY_COLLECTION).findOne({_id:ObjectId(Id)})
                 let productNo = await db.get().collection(collection.PRODUCT_COLLECTION).find({brand:count.brand}).count()
-            resolve(productNo)
-        })
+            return productNo
+        }catch (error){
+            throw error
+        }
     }
 }

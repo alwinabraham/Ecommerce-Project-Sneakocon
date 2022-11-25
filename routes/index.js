@@ -206,24 +206,9 @@ router.get('/edit-address/:id',userController.getEditAddressId)
 
 router.delete('/delete-coupon',adminController.deleteDeleteCoupon)
 
-router.get('/banner-management',(req,res)=>{
+router.get('/banner-management',adminController.getBannerManagement)
 
-  bannerHelper.getBanners().then((products)=>{
-    
-    res.render('admin/banner-management',{products})
-  })
-})
-
-router.post('/banner-management',upload.array('image'),(req,res)=>{
-  const files = req.files
-  const fileName = files.map((file) => {
-    return file.filename
-  })
-  req.body.image = fileName
-    bannerHelper.addBanner(req.body).then(() => {
-    res.redirect('/banner-management')
-  })
-})
+router.post('/banner-management',upload.array('image'),adminController.postBannerManagement)
 
 
 module.exports = router;

@@ -501,6 +501,8 @@ const getAddressDataUser = (req,res)=>{
     cartHelper.getACartAddress(id).then((address)=>{
       req.session.address = address
       res.redirect('/checkout')
+  }).catch(()=>{
+    res.render('error')
   })
   }
 
@@ -573,11 +575,17 @@ const getFilterBrand = (req,res)=>{
         if(req.session.userlogin){
           cartHelper.getCartCount(req.session.useractive).then((count)=>{
           res.render('home',{product,title:req.session.userlogin,brand,count,logout:"LOGOUT",check:true});
+          }).catch(()=>{
+            res.render('error')
           })
         }else{
           res.render('home',{product,brand,check:false});
         } 
-       })
+       }).catch(()=>{
+        res.render('error')
+      })
+    }).catch(()=>{
+      res.render('error')
     })
 }
 
@@ -592,6 +600,8 @@ const getUserProductsDetailsPage = (req,res)=>{
     orderHelper.getIndividualOrders(id).then((products)=>{
       res.render('user/user-products-details-page',{products})
   
+    }).catch(()=>{
+      res.render('error')
     })
 }
 
@@ -647,6 +657,8 @@ const postVerifyPayment = (req,res)=>{
 const getDeleteAddressId = (req,res)=>{
   let id = req.params.id
   cartHelper.deleteAAddress(id).then(()=>{
+  }).catch(()=>{
+    res.render('error')
   })
   res.redirect('/address-add')
 }
@@ -658,7 +670,11 @@ const getEditAddressId = (req,res)=>{
     cartHelper.getACartAddress(id).then((Address)=>{
       oneAddress = Address[0];
     res.render('user/address-add',{oneAddress,data})
+    }).catch(()=>{
+      res.render('error')
     })
+  }).catch(()=>{
+    res.render('error')
   })
 }
 

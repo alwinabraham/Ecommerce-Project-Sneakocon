@@ -101,17 +101,19 @@ module.exports={
             })
         })
     },BlockAProduct:(Id)=>{
-        return new Promise((resolve,reject)=>{
+        try{
             db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(Id)},{$set:{status:"blocked"}}).then((responce)=>{
                 if(responce){
-                    resolve(responce)
+                    return responce
                 }else{
-                    reject()
+                    throw 'error'
                 }
             }).catch((err)=>{
                 console.log(err);
             })
-        })
+        }catch (error){
+            throw error
+        }
     },updateAProduct:(reference,editedProduct)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).updateOne(reference,editedProduct).then((responce)=>{
@@ -124,17 +126,17 @@ module.exports={
                 console.log(err);
             })
         })
-    },getAProduct:(Id)=>{
-        return new Promise(async(resolve,reject)=>{
+    },getAProduct:async(Id)=>{
+        try{
             let product=await db.get().collection(collection.PRODUCT_COLLECTION).find({_id:ObjectId(Id)}).toArray()
             if(product){
-                resolve(product)
+                return product
             }else{
-                reject()
+                throw 'error'
             }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        }catch(error){
+            throw error;
+        }
     },checkLogin:(username)=>{
         return new Promise(async(resolve,reject)=>{
             let product=await db.get().collection(collection.ADMIN_COLLECTION).find({user:username}).toArray()
@@ -190,19 +192,19 @@ module.exports={
         }).catch((err)=>{
             console.log(err);
         })
-    },getProductByBrand:(Id)=>{
-        return new Promise(async(resolve,reject)=>{
+    },getProductByBrand:async(Id)=>{
+        try{
             let result = await db.get().collection(collection.CATEGORY_COLLECTION).findOne({_id:ObjectId(Id)})
                 Brand = result.brand;
                 let product = await db.get().collection(collection.PRODUCT_COLLECTION).find({brand:Brand , status: { $ne: "blocked" } }).sort({"_id":-1}).toArray()
                 if(product){
-                    resolve(product)
+                    return product
                 }else{
-                    reject()
+                    throw "error"
                 }
-            }).catch((err)=>{
-                console.log(err);
-            }) 
+            }catch(error){
+                throw(error);
+            }
     },getAProductDiscount:async (proId)=>{
           try {
             let product=await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([

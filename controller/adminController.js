@@ -160,6 +160,8 @@ const getDeleteUser = (req,res)=>{
     
     productHelper.BlockAProduct(value).then(()=>{
       res.redirect('/product-list')
+    }).catch(()=>{
+      res.render('error')
     })
     }
 
@@ -172,7 +174,11 @@ const getEditUser = (req,res)=>{
       categoryHelper.getAllCategory().then((items)=>{
         let product = products[0];
       res.render('edit-product',{product,items});
+    }).catch(()=>{
+      res.render('error')
     })
+    }).catch(()=>{
+      res.render('error')
     })
   }
 
@@ -187,12 +193,18 @@ const getBlockId = (req,res)=>{
       if(user[0].status == "block"){
         userHelper.updateAUser({_id:ObjectId(Id)},{$set:{status:"unblock"}}).then(()=>{
         res.redirect('/users-list')
+      }).catch(()=>{
+        res.render('error')
       })
     }else{
         userHelper.updateAUser({_id:ObjectId(Id)},{$set:{status:"block"}}).then(()=>{
         res.redirect('/users-list')
+        }).catch(()=>{
+          res.render('error')
         })
       }
+    }).catch(()=>{
+      res.render('error')
     })
   }
 
@@ -217,15 +229,18 @@ const postCategoryAdd = (req,res)=>{
 
 const getCategoryDeleteId = (req,res)=>{
     const value = req.params.id;
-    console.log(value);
     categoryHelper.checkCategory(value).then((count)=>{
       if(count != 0){
         res.redirect('/category-list')
       }else{
           categoryHelper.deleteACategory(value).then(()=>{
           res.redirect('/category-list')
+        }).catch(()=>{
+          res.render('error')
         })
       }
+    }).catch(()=>{
+      res.render('error')
     })
 
   }
@@ -239,6 +254,8 @@ const getCategoryEditUser = (req,res)=>{
       categoryHelper.getACategory(id).then((category)=>{
       category = category[0];
       res.render('category-edit',{category});
+        }).catch(()=>{
+          res.render('error')
         })
   }
 
@@ -324,6 +341,8 @@ const getOrderProductDetails = (req,res)=>{
     let id = req.params.id
     orderHelper.getIndividualOrders(id).then((products)=>{
         res.render('admin/order-product-details',{products})
+    }).catch(()=>{
+      res.render('error')
     })
 }
 
@@ -335,9 +354,25 @@ const deleteDeleteCoupon = (req,res)=>{
    })
 }
 
+const getBannerManagement = (req,res)=>{
+  bannerHelper.getBanners().then((products)=>{
+    res.render('admin/banner-management',{products})
+  })
+}
+
+const postBannerManagement = (req,res)=>{
+  const files = req.files
+  const fileName = files.map((file) => {
+    return file.filename
+  })
+  req.body.image = fileName
+    bannerHelper.addBanner(req.body).then(() => {
+    res.redirect('/banner-management')
+  })
+}
 
 module.exports ={
-    getAdminDashboard,postCategoryAdd,
+    getAdminDashboard,postCategoryAdd,getBannerManagement,
     adminSignup,getCategoryDeleteId,
     getDashboardPage,getCategoryEditUser,
     getProductList,postCategoryEdit,
@@ -350,5 +385,5 @@ module.exports ={
     getUsersList,getOrderProductDetails,
     getBlockId,getReportForm,
     getCategoryList,deleteDeleteCoupon,
-    getCategoryAdd
+    getCategoryAdd,postBannerManagement
   }

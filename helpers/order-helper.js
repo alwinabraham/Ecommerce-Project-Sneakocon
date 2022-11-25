@@ -211,8 +211,8 @@ module.exports={
             }
             });
         })
-    },getIndividualOrders:(orderId)=>{
-        return new Promise(async(resolve,reject)=>{
+    },getIndividualOrders:async(orderId)=>{
+        try{
             let individualorder = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
                     $match:{_id:ObjectId(orderId)}
@@ -222,13 +222,13 @@ module.exports={
                 }
             ]).toArray()
                 if(individualorder){
-                    resolve(individualorder)
+                    return individualorder
                 }else{
-                    reject()
+                    throw "error"
                 }
-            }).catch((err)=>{
-                console.log(err);
-            })
+            }catch (error){
+                throw error
+            }
     
     },updateASingleProductStatus:(orderId,proId,status)=>{
         console.log(orderId,proId,status);

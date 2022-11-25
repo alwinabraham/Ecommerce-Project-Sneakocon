@@ -284,15 +284,18 @@ module.exports={
         }).catch((err)=>{
             console.log(err);
         })
-    },getACartAddress:(cartId)=>{
-        return new Promise(async(resolve,reject)=>{
+    },getACartAddress:async(cartId)=>{
+        try{
             let user = await db.get().collection(collection.ADDRESS_COLLECTION).find({_id:ObjectId(cartId)}).toArray()
             if(user[0]==null){
-                resolve()
+                return null
             }else{
-                resolve(user)
+                return user
             }
-        })
+        }
+        catch (error) {
+            throw error
+        }
     },getSeperateCartItems:(userId)=>{
             return new Promise(async(resolve,reject)=>{
                 let products = await db.get().collection(collection.CART_COLLECTION).aggregate([
@@ -345,18 +348,20 @@ module.exports={
         })
 
 
-    },deleteAAddress:(addressId)=>{
-        return new Promise(async(resolve,reject)=>{
+    },deleteAAddress:async(addressId)=>{
+        try{
           db.get().collection(collection.ADDRESS_COLLECTION).deleteOne({_id:ObjectId(addressId)}).then((responce)=>{
             if(responce){
-                resolve(responce)
+                return responce
             }else{
-                reject()
+                throw "error"
             }
         }).catch((err)=>{
             console.log(err);
         })
-        })
+        }catch (error){
+            throw error
+        }
     }
 }
 

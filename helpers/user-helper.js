@@ -31,28 +31,30 @@ module.exports={
             console.log(err);
         })
     },updateAUser:(value,edit)=>{
-        return new Promise((resolve,reject)=>{
+        try{
             db.get().collection(collection.USER_COLLECTION).updateOne(value,edit).then((responce)=>{
                 if(responce){
-                    resolve(responce)
+                    return responce
                 }else{
-                    reject()
+                    throw "error"
                 }
             }).catch((err)=>{
                 console.log(err);
             })
-        })
-    },getAUser:(Id)=>{
-        return new Promise(async(resolve,reject)=>{
+        }catch (error){
+            throw error
+        }
+    },getAUser:async(Id)=>{
+        try{
             let user=await db.get().collection(collection.USER_COLLECTION).find({_id:ObjectId(Id)}).toArray()
             if(user){
-                resolve(user)
+                return user
             }else{
-                reject()
+                throw "error"
             }
-        }).catch((err)=>{
-            console.log(err);
-        })
+        }catch(error){
+            throw error;
+        }
     },getAUserEmailAddress:(Id)=>{
         return new Promise(async(resolve,reject)=>{
             let user=await db.get().collection(collection.USER_COLLECTION).find({email:Id}).toArray()
