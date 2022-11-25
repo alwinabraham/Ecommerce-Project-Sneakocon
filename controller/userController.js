@@ -352,6 +352,7 @@ const postCheckout = (req,res)=>{
     cartHelper.addAddress(req.session.useractive,req.body).then(()=>{
     })
     orderHelper.getProductsOrder(req.session.useractive).then((data)=>{
+      let razorPayTotal = (parseInt(req.session.total) * 100 * 75)
       orderHelper.addAOrder(req.session.useractive,address,req.body.paymentmethod,data,req.session.total).then((orderId)=>{
         orderHelper.getOrderedProductsQuantity(orderId).then((data)=>{
           productHelper.updateAfterOrder(data).then(()=>{
@@ -364,7 +365,7 @@ const postCheckout = (req,res)=>{
         if(req.body.paymentmethod == 'COD'){
               res.json({CODStatus:true})
         }else if(req.body.paymentmethod == 'RazorPay'){
-          orderHelper.generateRazorpay(orderId,data[0]?.sumTotal).then((response)=>{
+          orderHelper.generateRazorpay(orderId,razorPayTotal).then((response)=>{
             response.razorStatus=true
             res.json(response)
         })
@@ -607,6 +608,7 @@ const getUserProductsDetailsPage = (req,res)=>{
 
 
 const postPay = (req, res) => {
+  amount = req.session.total
   const create_payment_json = {
     "intent": "sale",
     "payer": {
@@ -621,14 +623,14 @@ const postPay = (req, res) => {
             "items": [{
                 "name": "Red Sox Hat",
                 "sku": "001",
-                "price": "25.00",
+                "price": amount,
                 "currency": "USD",
                 "quantity": 1
             }]
         },
         "amount": {
             "currency": "USD",
-            "total": "25.00"
+            "total": amount
         },
         "description": "Hat for the best team ever"
     }]

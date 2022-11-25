@@ -362,6 +362,8 @@
       })
     })
     function razorpayPayment(order){
+      console.log(order)
+      order.amount = ( parseInt(order.amount) * 100 * 75 )
         var options = {
           "key": "rzp_test_59QqPLVh3IfCVm",
           "amount": order.amount, 
@@ -406,6 +408,7 @@ rzp1.on('payment.failed', function (response){
      console.log(payment,order)
     }
   </script>
+
   <script>
     function couponCheck(userId,total){
       let coupons = document.getElementById("coupon")

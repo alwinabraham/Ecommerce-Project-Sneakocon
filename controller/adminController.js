@@ -135,14 +135,14 @@ const postUpdateProduct = (req,res)=>{
   return file.filename
   })
     if(req.files==null){
-      productHelper.updateAProduct({_id:ObjectId(id)},newValues).then((responce)=>{
+      productHelper.updateAProduct({_id:ObjectId(id)},newValues).then(()=>{
 
       })
       res.redirect('/product-list')
     }else{
       req.body.image = fileName
       newValues = {$set : req.body}
-      productHelper.updateAProduct({_id:ObjectId(id)},newValues).then((responce)=>{
+      productHelper.updateAProduct({_id:ObjectId(id)},newValues).then(()=>{
         res.redirect('/product-list')
       })
     }
