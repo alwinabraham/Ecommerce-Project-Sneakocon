@@ -50,6 +50,9 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let product=await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([
                 {
+                    $match:{status:"Available"}
+                },
+                {
                     $lookup:{
                         from:collection.CATEGORY_COLLECTION,
                         localField:'brand',
@@ -66,6 +69,9 @@ module.exports={
                         roundedValue: { $round: [ {$multiply:[{ $multiply: [ {$toInt:"$price"}, {$cond: { if: { $gt: [ "$discount", {$arrayElemAt:['$products.discount',0]} ] }, then: '$discount', else:{$arrayElemAt:['$products.discount',0]}}}]},.01]}, 0 ]},
                         DiscountedTotal: { $subtract: [ {$toInt:"$price"}, { $round: [ {$multiply:[{ $multiply: [ {$toInt:"$price"}, {$cond: { if: { $gt: [ "$discount", {$arrayElemAt:['$products.discount',0]} ] }, then: '$discount', else:{$arrayElemAt:['$products.discount',0]}}}]},.01]}, 0 ]} ] } 
                     }
+                },
+                {
+                    $sort:{_id:-1}
                 }
             ]).toArray()
             if(product){
@@ -242,6 +248,9 @@ module.exports={
     },getTrendingProdcuts:()=>{
         return new Promise(async(resolve,reject)=>{
             let product=await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([
+                {
+                    $match:{status:"Available"}
+                },
                 {
                     $lookup:{
                         from:collection.CATEGORY_COLLECTION,
