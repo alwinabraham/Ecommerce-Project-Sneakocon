@@ -14,6 +14,7 @@ const paypal = require('paypal-rest-sdk');
 const multer  = require('multer');
 const wishlistHelper = require('../helpers/wishlist-helper');
 const couponHelper = require('../helpers/coupon-helper');
+const bannerHelper = require('../helpers/banner-helper');
 
 const getAdminDashboard = (req, res, next) =>{
     if(req.session.adminActive){
@@ -357,6 +358,7 @@ const deleteDeleteCoupon = (req,res)=>{
 const getBannerManagement = (req,res)=>{
   bannerHelper.getBanners().then((products)=>{
     res.render('admin/banner-management',{products})
+    
   })
 }
 
