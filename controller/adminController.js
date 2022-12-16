@@ -315,7 +315,8 @@ const postAddCoupon = (req,res)=>{
     couponObj={
       couponName:req.body.couponName,
       deduction:req.body.deduction,
-      expiryData:newDate
+      expiryData:newDate,
+      limit:req.body.limit
     }
     couponHelper.addCoupon(couponObj).then(()=>{
     })

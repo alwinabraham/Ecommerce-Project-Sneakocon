@@ -5,6 +5,7 @@ const { response } = require('express');
 module.exports={
 
     addCoupon:(item)=>{
+        console.log(item)
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.COUPON_COLLECTION).insertOne(item).then(()=>{
                 resolve()        
@@ -36,8 +37,13 @@ module.exports={
                             {
                                 $push:{coupons:couponName}
                             }).then(()=>{
+                                let discountResult = 0;
                                 let deduction = coupon?.deduction
-                                let discountResult = total*(deduction/100)
+                                if(total>coupon?.limit){
+                                    discountResult = (deduction*10)
+                                }else{
+                                    discountResult = total*(deduction/100)
+                                }
                                 let newResult = total - discountResult
                                 let newtotal = Math.round(newResult)
                                 if(newtotal){

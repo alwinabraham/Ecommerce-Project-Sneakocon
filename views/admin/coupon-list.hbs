@@ -117,7 +117,7 @@
                                         </label>
                                         <label class="form-check mb-4">
                                             <label for="product_name" class="form-label">Limit</label>
-                                            <input type="text" class="form-control" name="limit" id="datepicker" placeholder="Type here" autocomplete="off" required>
+                                            <input type="text" class="form-control" name="limit" id="product_limit" placeholder="Type here" autocomplete="off" required>
                                         </label>
                                 </div>
                                 <div class="modal-footer">
@@ -140,6 +140,7 @@
                                     <th scope="col">Coupon Name</th>
                                     <th scope="col">Deduction</th>
                                     <th scope="col">Expiry Date</th>
+                                    <th scope="col">Limit</th>
                                     {{!-- <th scope="col">Edit Coupon</th> --}}
                                     <th scope="col">Delete Coupon</th>
                                 </tr>
@@ -151,6 +152,7 @@
                                     <td><span>{{this.couponName}}</span></td>
                                     <td><span>{{this.deduction}}%</span></td>
                                     <td> <span>{{this.expiryData}}</span></td>
+                                    <td> <span>{{this.limit}}</span></td>
                                     {{!-- <td><a href='/editCoupon/{{this._id}}' class="btn btn-sm font-sm rounded btn-brand"><i class="material-icons md-edit"></i> Edit</a></td> --}}
                                     <td>
                                         <button class="btn btn-sm font-sm btn-light rounded" onclick="return deleteCoupon('{{this._id}}')">Delete</button>
