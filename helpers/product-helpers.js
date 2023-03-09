@@ -350,5 +350,9 @@ module.exports={
                 })
             }
         })
+    },addRateing:()=>{
+        return new Promise((resolve,reject)=>{
+
+        })
     }
 }
